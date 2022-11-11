@@ -6,5 +6,6 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 48rem;
     margin: auto;
     background-color: #f6f6f6;
+    padding: 0 1rem;
   }
 `;
