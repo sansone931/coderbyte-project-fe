@@ -10,5 +10,4 @@ export default meta;
 export const Default: Story<InputProps> = (args) => <Input {...args} />;
 Default.args = {
   name: 'input',
-  value: 'Smith',
 };
