@@ -1,6 +1,4 @@
-# React TypeScript Starter
-
-A basic React app to start a new project.
+# Coderbyte Project FE
 
 ## Main Libraries
 
