@@ -5,4 +5,5 @@ export const StyledInput = styled.input`
   padding: 0.5rem;
   border-radius: 0.25rem;
   width: 100%;
+  box-sizing: border-box;
 `;
