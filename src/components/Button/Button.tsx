@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 import { StyledButton } from './styled';
-import { ButtonVariant } from './types';
+import { type ButtonVariant } from './types';
 
 export type ButtonProps = {
   variant: ButtonVariant;
