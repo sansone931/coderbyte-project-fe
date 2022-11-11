@@ -5,6 +5,7 @@ export const ItemContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const FullName = styled.div`
@@ -24,6 +25,7 @@ export const ButtonContainer = styled.div`
 export const ContactListContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 0.25rem;
+  overflow: hidden;
 
   & > *:not(:last-child) {
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
