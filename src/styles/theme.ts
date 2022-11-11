@@ -5,5 +5,6 @@ export const theme: DefaultTheme = {
     primary: '#347bf6',
     danger: '#cb444a',
     border: '#a6a6a6',
+    grayText: '#919191',
   },
 };

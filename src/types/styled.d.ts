@@ -6,6 +6,7 @@ declare module 'styled-components' {
       primary: string;
       danger: string;
       border: string;
+      grayText: string;
     };
   }
 }
