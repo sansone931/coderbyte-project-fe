@@ -14,8 +14,8 @@
     "format": "prettier --write '**/*.{js,ts,tsx,md,html,json}'",
     "format:check": "prettier --check '**/*.{js,ts,tsx,md,html,json}'",
     "typecheck": "tsc --noEmit",
-    "storybook": "start-storybook --no-open -p 9000",
-    "build:storybook": "build-storybook"
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook --no-open -p 9000",
+    "build:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook"
   },
   "dependencies": {
     "react": "^18.2.0",
