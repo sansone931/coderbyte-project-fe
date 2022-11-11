@@ -5,12 +5,25 @@ import { ButtonVariant } from './types';
 
 export type ButtonProps = {
   variant: ButtonVariant;
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
+  type: 'button' | 'submit';
+  disabled?: boolean;
 };
 
-export const Button: FC<ButtonProps> = ({ variant, onClick, children }) => (
-  <StyledButton $variant={variant} onClick={onClick}>
+export const Button: FC<ButtonProps> = ({
+  variant,
+  onClick,
+  children,
+  type,
+  disabled,
+}) => (
+  <StyledButton
+    $variant={variant}
+    onClick={onClick}
+    type={type}
+    disabled={disabled}
+  >
     {children}
   </StyledButton>
 );

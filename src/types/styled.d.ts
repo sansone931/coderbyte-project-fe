@@ -8,6 +8,7 @@ declare module 'styled-components' {
       danger: string;
       border: string;
       grayText: string;
+      buttonDisabled: string;
     };
   }
 }

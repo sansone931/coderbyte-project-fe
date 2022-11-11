@@ -11,11 +11,16 @@ export const StyledButton = styled.button<{ $variant: ButtonVariant }>`
   cursor: pointer;
   transition: filter 0.2s linear;
 
-  &:hover {
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.buttonDisabled};
+    cursor: inherit;
+  }
+
+  &:hover:not(:disabled) {
     filter: brightness(1.2);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     filter: brightness(0.8);
   }
 `;

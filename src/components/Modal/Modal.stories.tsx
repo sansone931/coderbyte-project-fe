@@ -20,6 +20,7 @@ export const Default: Story<Args> = (args) => {
   return (
     <>
       <Button
+        type="button"
         variant="primary"
         onClick={() => {
           setIsOpen(true);

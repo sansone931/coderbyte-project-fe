@@ -8,6 +8,7 @@ const meta: Meta<Args> = {
   component: Button,
   args: {
     children: 'Click Me',
+    type: 'button',
   },
 };
 export default meta;

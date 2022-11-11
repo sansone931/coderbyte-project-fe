@@ -33,10 +33,10 @@ export const ContactListItem: FC<ContactListItemProps> = ({
       <PhoneNumber>{phoneNumber}</PhoneNumber>
     </div>
     <ButtonContainer>
-      <Button variant="primary" onClick={() => onEditClick(id)}>
+      <Button type="button" variant="primary" onClick={() => onEditClick(id)}>
         Edit
       </Button>
-      <Button variant="danger" onClick={() => onDeleteClick(id)}>
+      <Button type="button" variant="danger" onClick={() => onDeleteClick(id)}>
         Delete
       </Button>
     </ButtonContainer>

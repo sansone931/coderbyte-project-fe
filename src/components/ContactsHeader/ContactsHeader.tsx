@@ -12,7 +12,7 @@ export const ContactsHeader: FC<ContactsHeaderProps> = ({
 }) => (
   <Container>
     <h2>Contacts</h2>
-    <Button variant="primary" onClick={onAddContactClick}>
+    <Button type="button" variant="primary" onClick={onAddContactClick}>
       Add Contact
     </Button>
   </Container>
