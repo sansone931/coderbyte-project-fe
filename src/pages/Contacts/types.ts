@@ -1,5 +1,5 @@
 export type ContactFormData = {
-  id: string | null;
+  id: number | null;
   firstName: string;
   lastName: string;
   phoneNumber: string;

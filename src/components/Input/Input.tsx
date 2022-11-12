@@ -13,6 +13,7 @@ export type InputProps = {
   placeholder?: string;
   inputRef?: RefCallBack;
   type?: HTMLInputTypeAttribute;
+  disabled?: boolean;
 };
 
 export const Input: FC<InputProps> = ({
@@ -24,6 +25,7 @@ export const Input: FC<InputProps> = ({
   onBlur,
   placeholder,
   inputRef,
+  disabled,
   type = 'text',
 }) => (
   <InputContainer>
@@ -36,6 +38,7 @@ export const Input: FC<InputProps> = ({
       value={value}
       onChange={onChange}
       onBlur={onBlur}
+      disabled={disabled}
       ref={inputRef}
     />
     {errorText && <ErrorText>{errorText}</ErrorText>}

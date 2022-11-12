@@ -1,7 +1,10 @@
+import dotenv from 'dotenv';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
-import { Configuration as WebpackConfiguration } from 'webpack';
+import { DefinePlugin, Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+
+dotenv.config();
 
 export interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -26,6 +29,9 @@ const config: Configuration = {
   plugins: [
     new HtmlWebPackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
+    }),
+    new DefinePlugin({
+      API_URL: JSON.stringify(process.env.API_URL),
     }),
   ],
 };

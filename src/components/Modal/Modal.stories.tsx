@@ -9,7 +9,7 @@ type Args = ModalProps;
 const meta: Meta<Args> = {
   component: Modal,
   args: {
-    children: 'Click Me',
+    children: 'Modal content',
   },
 };
 export default meta;

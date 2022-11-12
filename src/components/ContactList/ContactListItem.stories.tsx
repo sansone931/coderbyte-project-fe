@@ -11,7 +11,7 @@ export const Default: Story<ContactListItemProps> = (args) => (
   <ContactListItem {...args} />
 );
 Default.args = {
-  id: '1',
+  id: 1,
   firstName: 'John',
   lastName: 'Smith',
   phoneNumber: '123456789',

@@ -6,8 +6,8 @@ import { ContactListContainer } from './styled';
 
 export type ContactListProps = {
   contacts: Contact[];
-  onContactDeleteClick: (id: string) => void;
-  onContactEditClick: (id: string) => void;
+  onContactDeleteClick: (id: number) => void;
+  onContactEditClick: (id: number) => void;
 };
 
 export const ContactList: FC<ContactListProps> = ({

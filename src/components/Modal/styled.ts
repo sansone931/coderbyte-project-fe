@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ModalStyle = styled.div`
-  min-height: 18rem;
   margin: 2rem;
   padding: 2.5rem;
   display: flex;

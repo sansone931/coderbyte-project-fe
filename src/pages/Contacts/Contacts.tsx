@@ -1,32 +1,22 @@
-import { ChangeEventHandler, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { ContactList, ContactsHeader, Input, Modal } from '../../components';
-import { type Contact } from '../../types/contact';
+import {
+  Button,
+  ContactList,
+  ContactsHeader,
+  Input,
+  Modal,
+} from '../../components';
 import { ContactsForm } from './ContactsForm';
+import {
+  useContacts,
+  useCreateContact,
+  useDeleteContact,
+  useFilteredContacts,
+  useUpdateContact,
+} from './hooks';
 import { type ContactFormData } from './types';
-import { useFilteredContacts } from './useFilteredContacts';
-
-const mockContacts: Contact[] = [
-  {
-    id: '1',
-    firstName: 'John',
-    lastName: 'Smith',
-    phoneNumber: '123456789',
-  },
-  {
-    id: '2',
-    firstName: 'Steve',
-    lastName: 'Jobs',
-    phoneNumber: '987654321',
-  },
-  {
-    id: '3',
-    firstName: 'Bill',
-    lastName: 'Gates',
-    phoneNumber: '543216789',
-  },
-];
 
 const defaultContactFormValues: ContactFormData = {
   id: null,
@@ -36,9 +26,16 @@ const defaultContactFormValues: ContactFormData = {
 };
 
 export const Contacts: FC = () => {
-  const [contacts, setContacts] = useState(mockContacts);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { search, setSearch, filteredContacts } = useFilteredContacts(contacts);
+  const { contacts, isLoading, isError } = useContacts();
+  const { createContact, createIsLoading } = useCreateContact();
+  const { updateContact, updateIsLoading } = useUpdateContact();
+  const { deleteContact, deleteIsLoading } = useDeleteContact();
+
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [idForDeletion, setIdForDeletion] = useState<number | null>(null);
+
+  const { search, handleChangeSearch, filteredContacts } =
+    useFilteredContacts(contacts);
 
   const { register, handleSubmit, formState, reset, getValues } =
     useForm<ContactFormData>({
@@ -46,20 +43,16 @@ export const Contacts: FC = () => {
       mode: 'all',
     });
 
-  const handleChangeSearch: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+  const handleFormModalClose = () => {
+    setIsFormModalOpen(false);
   };
 
   const handleContactAddClick = () => {
     reset(defaultContactFormValues);
-    setIsModalOpen(true);
+    setIsFormModalOpen(true);
   };
 
-  const handleContactEditClick = (id: string) => {
+  const handleContactEditClick = (id: number) => {
     const contact = filteredContacts.find((c) => c.id === id);
 
     if (!contact) throw new Error(`Contact with id='${id}' not found`);
@@ -70,19 +63,21 @@ export const Contacts: FC = () => {
       lastName: contact.lastName,
       phoneNumber: contact.phoneNumber,
     });
-    setIsModalOpen(true);
+    setIsFormModalOpen(true);
   };
 
-  const handleContactDeleteClick = (id: string) => {
-    // TODO: delete contact
-    console.log('Delete', id);
+  const handleContactDeleteClick = (id: number) => {
+    setIdForDeletion(id);
   };
 
-  const onSubmit: SubmitHandler<ContactFormData> = (data) => {
-    // TODO: submit contact
-    console.log('Submit', data);
+  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+    if (data.id) {
+      await updateContact(data);
+    } else {
+      await createContact(data);
+    }
 
-    handleModalClose();
+    handleFormModalClose();
   };
 
   return (
@@ -98,6 +93,11 @@ export const Contacts: FC = () => {
         placeholder="Search for contact by last name..."
       />
 
+      {isLoading && <p>Loading...</p>}
+      {isError && (
+        <p>There was a problem while fetching the list of contacts</p>
+      )}
+
       {filteredContacts.length > 0 && (
         <ContactList
           contacts={filteredContacts}
@@ -106,13 +106,41 @@ export const Contacts: FC = () => {
         />
       )}
 
-      <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+      <Modal
+        isOpen={isFormModalOpen}
+        onClose={() => {
+          if (!createIsLoading && !updateIsLoading) handleFormModalClose();
+        }}
+      >
         <ContactsForm
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           formState={formState}
           isAdding={getValues('id') === null}
+          isLoading={createIsLoading || updateIsLoading}
         />
+      </Modal>
+
+      <Modal
+        isOpen={idForDeletion !== null}
+        onClose={() => {
+          if (!deleteIsLoading) {
+            setIdForDeletion(null);
+          }
+        }}
+      >
+        <p>Confirm deletion?</p>
+        <Button
+          type="button"
+          variant="danger"
+          disabled={deleteIsLoading}
+          onClick={async () => {
+            if (idForDeletion !== null) await deleteContact(idForDeletion);
+            setIdForDeletion(null);
+          }}
+        >
+          {deleteIsLoading ? 'Deleting...' : 'Delete'}
+        </Button>
       </Modal>
     </main>
   );

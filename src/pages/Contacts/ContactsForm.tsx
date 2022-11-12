@@ -9,6 +9,7 @@ type ContactsFormProps = {
   register: UseFormRegister<ContactFormData>;
   formState: FormState<ContactFormData>;
   isAdding: boolean;
+  isLoading: boolean;
 };
 
 export const ContactsForm: FC<ContactsFormProps> = ({
@@ -16,6 +17,7 @@ export const ContactsForm: FC<ContactsFormProps> = ({
   register,
   formState,
   isAdding,
+  isLoading,
 }) => {
   const firstName = register('firstName', {
     required: 'This field is required',
@@ -39,6 +41,7 @@ export const ContactsForm: FC<ContactsFormProps> = ({
         onBlur={firstName.onBlur}
         inputRef={firstName.ref}
         errorText={formState.errors.firstName?.message}
+        disabled={isLoading}
       />
       <Input
         label="Last Name"
@@ -47,6 +50,7 @@ export const ContactsForm: FC<ContactsFormProps> = ({
         onBlur={lastName.onBlur}
         inputRef={lastName.ref}
         errorText={formState.errors.lastName?.message}
+        disabled={isLoading}
       />
       <Input
         label="Phone Number"
@@ -55,9 +59,14 @@ export const ContactsForm: FC<ContactsFormProps> = ({
         onBlur={phoneNumber.onBlur}
         inputRef={phoneNumber.ref}
         errorText={formState.errors.phoneNumber?.message}
+        disabled={isLoading}
       />
-      <Button type="submit" variant="primary" disabled={!formState.isValid}>
-        Submit
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={!formState.isValid || isLoading}
+      >
+        {isLoading ? 'Submitting...' : 'Submit'}
       </Button>
     </form>
   );

@@ -9,12 +9,12 @@ import {
 } from './styled';
 
 export type ContactListItemProps = {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  onDeleteClick: (id: string) => void;
-  onEditClick: (id: string) => void;
+  onDeleteClick: (id: number) => void;
+  onEditClick: (id: number) => void;
 };
 
 export const ContactListItem: FC<ContactListItemProps> = ({
